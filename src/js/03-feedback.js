@@ -17,9 +17,15 @@ const inputData = document.querySelector('input');
 const messageData = document.querySelector('textarea');
 const getItems = localStorage.getItem('feedback-form-state');
 const parsedForm = JSON.parse(getItems);
-
-inputData.value = parsedForm.email;
-messageData.value = parsedForm.message;
+function getFn() {
+  if (!getItems) {
+    return false;
+  } else {
+    inputData.value = parsedForm.email;
+    messageData.value = parsedForm.message;
+  }
+}
+getFn();
 
 const submitFn = form.addEventListener('submit', e => {
   e.preventDefault();
