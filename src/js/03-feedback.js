@@ -5,7 +5,6 @@ const addDataToLS = form.addEventListener(
   'input',
   throttle(e => {
     const { message, email } = form.elements;
-    // console.log(email.value);
     const importedData = {
       email: email.value,
       message: message.value,
@@ -13,9 +12,16 @@ const addDataToLS = form.addEventListener(
     localStorage.setItem('feedback-form-state', JSON.stringify(importedData));
   }, 500),
 );
-// form.addEventListener('input', throttle(addDataToLS, 500));
 
-form.addEventListener('submit', e => {
+const inputData = document.querySelector('input');
+const messageData = document.querySelector('textarea');
+const getItems = localStorage.getItem('feedback-form-state');
+const parsedForm = JSON.parse(getItems);
+
+inputData.value = parsedForm.email;
+messageData.value = parsedForm.message;
+
+const submitFn = form.addEventListener('submit', e => {
   e.preventDefault();
   const { message, email } = e.currentTarget.elements;
   const importedData = { email: email.value, message: message.value };
